@@ -1,7 +1,9 @@
 package speech;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.awt.geom.Path2D;
 
 public class Smiley {
@@ -37,9 +39,6 @@ public class Smiley {
 		//Draw face
 		g.setColor(FACE_FILL_COLOR);
 		g.fillOval(x, y, width, height);
-		
-		g.setColor(FACE_OUTLINE_COLOR);
-		g.drawOval(x, y, width, height);
 		
 		//Draw eyes
 		g.setColor(EYE_FILL_COLOR);

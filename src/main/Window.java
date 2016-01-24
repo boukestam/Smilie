@@ -12,12 +12,12 @@ import javax.swing.JFrame;
 
 import speech.Smiley;
 
-public class Window{
+public class Window implements Runnable{
 	
 	private JFrame frame;
 	private Smiley smiley;
 	
-	public static final int FRAME_WIDTH = 200, FRAME_HEIGHT = 200;
+	public static final int FRAME_WIDTH = 100, FRAME_HEIGHT = 100;
 
 	public Window(Smiley smiley){
 		frame = new JFrame();
@@ -32,6 +32,27 @@ public class Window{
         frame.setVisible(true);
         
         this.smiley = smiley;
+        
+        new Thread(this).start();
+	}
+	
+	public void run(){
+		long lastDraw = 0;
+		
+		while(true){
+			long now = System.currentTimeMillis();
+			
+			if(now - lastDraw > 10){
+				draw();
+				lastDraw = now;
+			}
+			
+			try{
+				Thread.sleep(1);
+			}catch(Exception e){
+				
+			}
+		}
 	}
 	
 	public void draw(){
@@ -48,11 +69,11 @@ public class Window{
 		
 		double angle = Math.atan2(mousePosition.y - frameCenterPosition.y, mousePosition.x - frameCenterPosition.x);
 		
-		if(distance > frame.getWidth() * 3){
+		if(distance > 600){
 			double speed = 20;
 			
 			frame.setLocation(framePosition.x + (int)(Math.cos(angle) * speed), framePosition.y + (int)(Math.sin(angle) * speed));
-		}else if(distance < frame.getWidth()){
+		}else if(distance < 200){
 			double speed = 20;
 			
 			frame.setLocation(framePosition.x - (int)(Math.cos(angle) * speed), framePosition.y - (int)(Math.sin(angle) * speed));
